@@ -14,8 +14,8 @@
       <h3>{{pen.name}}</h3>
       <h4>posted by: <a href="/user/{{author.name}}">{{author.name}}</a></h4>
       <hr>
-      <p>likes:</p>
-      <p>pins:</p>
+      <p>likes: {{pen.likes.length}}</p>
+      <p>pins: {{pen.pins.length}}</p>
       <br>
       <a href="/pen/{{pen._id}}/like">
         <button class="btn btn-default" type="button" name="button">Like</button>

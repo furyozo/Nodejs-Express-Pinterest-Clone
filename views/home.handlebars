@@ -25,7 +25,7 @@
               </a>
               <p class="pull-left">
                 <br>
-                likes: shares:
+                likes: {{pen.likes.length}} shares: {{pen.pins.length}}
               </p>
             </div>
           </div>
@@ -66,6 +66,38 @@
         </div>
       </div>
     </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-xs-12">
+      <h4>Pinned pens:</h4>
+      <br>
+    </div>
+
+    {{#each pinned_pens as |pen|}}
+    <div class="col-xs-12 col-sm-6 col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          {{pen.name}}
+          <span class="glyphicon glyphicon-picture pull-left panel-glyphicon" aria-hidden="true"></span>
+          <a href="/pen/{{pen._id}}/remove">
+            <span class="glyphicon glyphicon-remove pull-right panel-glyphicon" aria-hidden="true"></span>
+          </a>
+        </div>
+        <div class="panel-body">
+          <a href="/pen/{{pen._id}}">
+            <div class="panel-img" style="background-image: url('{{pen.link}}'), url('/images/noimage.png')"></div>
+          </a>
+          <p class="pull-left">
+            <br>
+            likes: {{pen.likes.length}} shares: {{pen.pins.length}}
+          </p>
+        </div>
+      </div>
+    </div>
+    {{/each}}
 
   </div>
 

@@ -43,4 +43,20 @@ router.post('/search', function(req, res, next) {
   })
 })
 
+/* like pen */
+router.get('/:id/like', function(req, res, next) {
+  if (!req.session.user) return res.redirect('/login');
+  Pen.like(req, function(pen) {
+    res.render('pen', {user: req.session.user, pen: pen});
+  })
+})
+
+/* pin pen */
+router.get('/:id/pin', function(req, res, next) {
+  if (!req.session.user) return res.redirect('/login');
+  Pen.pin(req, function(pen) {
+    res.render('pen', {user: req.session.user, pen: pen});
+  })
+})
+
 module.exports = router;
