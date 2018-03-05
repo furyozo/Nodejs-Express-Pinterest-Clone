@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 var session = require('express-session')
 
-var Authorize = require('../middlewares/Authorize.js');
-
+var Pen = require('../models/Pen.js')
 var User = require('../models/User.js')
+
+var Authenticate = require('../middlewares/Authenticate.js')
 
 /* login a user */
 router.post('/login', function(req, res, next) {
@@ -28,18 +29,13 @@ router.get('/logout', function(req, res, next) {
   res.redirect('/');
 });
 
-/* edit existing user */
-router.post('/:id/edit', Authorize.isAuthorizedUser, function(req, res, next) {
-  User.edit(req, function(user) {
-    res.redirect('/home')
-  })
-})
-
-/* edit existing user */
+/* get existing user */
 router.get('/:name', function(req, res, next) {
   User.findOne({name: req.params.name}, function(err, user) {
-    if (err) res.render('auth/register', err);
-    else res.render('user', {user: user});
+    Pen.find({user_id: user._id}, function(err, pens) {
+      if (err) res.render('auth/register', err);
+      else res.render('user', {user: req.session.user, author: user, pens: pens});
+    })
   })
 })
 

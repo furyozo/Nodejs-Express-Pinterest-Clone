@@ -1,21 +1,43 @@
 <div id="public-user" class="container">
 
   <div class="row">
-    <div class="col-xs-12">
-      <h4>{{user.name}} profile</h4>
-      <br>
-      <p>{{user.email}}</p>
-      <p>{{user.full_name}}</p>
-      <p>{{user.city}}</p>
-      <p>{{user.state}}</p>
-    </div>
-  </div>
 
-  <div class="row">
     <div class="col-xs-12">
-      <h4>{{user.name}}'s books:</h4>
+      <h4>{{author.name}}'s pens</h4>
       <br>
     </div>
+
+    <div class="col-xs-12">
+      <div class="row">
+        {{#each pens as |pen|}}
+        <div class="col-xs-12 col-sm-6 col-md-3">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              {{pen.name}}
+              <span class="glyphicon glyphicon-picture pull-left panel-glyphicon" aria-hidden="true"></span>
+            </div>
+            <div class="panel-body">
+              <a href="/pen/{{pen._id}}">
+                <div class="panel-img" style="background-image: url('{{pen.link}}'), url('/images/noimage.png')"></div>
+              </a>
+              <p class="pull-left">
+                <br>
+                likes: shares:
+              </p>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+
+    <div class="col-xs-12">
+      <br>
+      <a href="/">
+        <button class="btn btn-default" type="button" name="button">Back</button>
+      </a>
+    </div>
+
   </div>
 
 </div>

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
 var bcrypt = require('bcrypt')
 
-mongoose.connect('mongodb://prase:prase@ds255958.mlab.com:55958/booktrading-app');
+mongoose.connect('mongodb://prase:prase@ds255768.mlab.com:55768/pinterest-clone');
 
 var UserSchema = new mongoose.Schema({
   name: {
@@ -14,18 +14,6 @@ var UserSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
-    trim: true
-  },
-  full_name: {
-    type: String,
-    trim: true
-  },
-  city: {
-    type: String,
-    trim: true
-  },
-  state: {
-    type: String,
     trim: true
   },
   password: {
@@ -123,22 +111,6 @@ UserSchema.statics.login = function (req, callback) {
  */
 UserSchema.statics.logout = function (req) {
   delete req.session.user;
-}
-
-/**
- * edit existing user
- * @param  {Object} req request containing the new user data
- */
-UserSchema.statics.edit = function (req, callback) {
-  this.findById(req.params.id, (err, user) => {
-    if (err) console.error(err)
-    user.full_name = req.body.fname
-    user.city = req.body.city
-    user.state = req.body.state
-    user.save()
-    req.session.user = user;
-    return callback(user);
-  })
 }
 
 module.exports = mongoose.model('User', UserSchema);

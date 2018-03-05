@@ -2,18 +2,12 @@ var express = require('express');
 var router = express.Router();
 var session = require('express-session')
 
-var Book = require('../models/Book.js');
+var Pen = require('../models/Pen.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  Book.find({}, function(err, books) {
-    if (req.session.user) {
-      Book.find({user_id: req.session.user._id}, function(err, userBooks) {
-        res.render('index', { user: req.session.user, books: books, userBooks: userBooks });
-      })
-    } else {
-      res.render('index', { user: req.session.user, books: books });
-    }
+  Pen.find({}, function(err, pens) {
+    res.render('index', { user: req.session.user, pens: pens });
   })
 });
 

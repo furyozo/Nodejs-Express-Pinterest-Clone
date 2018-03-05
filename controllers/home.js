@@ -4,18 +4,13 @@ var router = express.Router();
 
 var Authenticator = require('../middlewares/Authenticate.js');
 
-var Book = require('../models/Book.js');
-var Trade = require('../models/Trade.js');
+var Pen = require('../models/Pen.js');
 var User = require('../models/User.js')
 
 /* get user private are */
 router.get('/', Authenticator.isAuthenticated, function(req, res, next) {
-  Book.getBooksByUser(req.session.user, function(err, books) {
-    Trade.find({'wants.name': req.session.user.name}, function(err, trades_to_you) {
-      Trade.find({'offering.name': req.session.user.name}, function(err, your_trades) {
-        res.render('home', {user: req.session.user, books: books, trades_to_you: trades_to_you, your_trades: your_trades});
-      })
-    })
+  Pen.find({}).where('user_id').equals(req.session.user._id).exec(function(err, pens) {
+    res.render('home', {user: req.session.user, pens: pens});
   })
 })
 

@@ -10,7 +10,7 @@ var exphbs  = require('express-handlebars');
 
 var home = require('./controllers/home');
 var index = require('./controllers/index');
-var book = require('./controllers/book');
+var pen = require('./controllers/pen');
 var user = require('./controllers/user');
 
 var app = express();
@@ -36,7 +36,7 @@ app.use(fileupload());
 
 app.use('/', index);
 app.use('/home', home);
-app.use('/book', book);
+app.use('/pen', pen);
 app.use('/user', user);
 
 // catch 404 and forward to error handler
