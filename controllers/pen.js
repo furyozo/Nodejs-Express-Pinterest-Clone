@@ -10,13 +10,15 @@ var User = require('../models/User.js')
 /* get user private are */
 router.post('/add', Authenticator.isAuthenticated, function(req, res, next) {
   Pen.find({}).where('user_id').equals(req.session.user._id).exec(function(err, pens) {
-    if (!req.body.name || !req.body.link)
-      res.render('home', {user: req.session.user, pens: pens, err: "some pen data is missing"});
-    else {
-      Pen.create(req, function() {
-        res.redirect('/home');
-      })
-    }
+    Pen.find({pins: req.session.user._id}, function(err, pinned_pens) {
+      if (!req.body.name || !req.body.link)
+      res.render('home', {user: req.session.user, pens: pens, pinned_pens: pinned_pens, err: "some pen data is missing"});
+      else {
+        Pen.create(req, function() {
+          res.redirect('/home');
+        })
+      }
+    })
   })
 })
 
