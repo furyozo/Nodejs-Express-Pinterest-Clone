@@ -13,12 +13,13 @@ var UserSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    required: true,
     trim: true
   },
   password: {
-    type: String,
-    required: true,
+    type: String
+  },
+  twitterId: {
+    type: String
   }
 });
 
@@ -112,5 +113,19 @@ UserSchema.statics.login = function (req, callback) {
 UserSchema.statics.logout = function (req) {
   delete req.session.user;
 }
+
+UserSchema.statics.findOrCreate = function (profile, cb){
+  var userObj = new this();
+  this.findOne({twitterId : profile.id}, function(err, user) {
+    if(!user) {
+      userObj.name = profile.displayName;
+      userObj.twitterId = profile.id;
+      userObj.save(cb);
+    } else {
+      // req.session.user = user;
+      cb(err, user);
+    }
+  });
+};
 
 module.exports = mongoose.model('User', UserSchema);

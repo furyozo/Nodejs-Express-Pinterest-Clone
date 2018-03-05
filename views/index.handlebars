@@ -13,12 +13,9 @@
         <div class="panel-heading">
           {{pen.name}}
           <span class="glyphicon glyphicon-picture pull-left panel-glyphicon" aria-hidden="true"></span>
-          <a href="/pen/{{pen._id}}/remove">
-            <span class="glyphicon glyphicon-remove pull-right panel-glyphicon" aria-hidden="true"></span>
-          </a>
         </div>
         <div class="panel-body">
-          <a href="/pen/{{pen._id}}">
+          <a href="/pen/{{pen.user_id}}/{{pen._id}}">
             <div class="panel-img" style="background-image: url('{{pen.link}}'), url('/images/noimage.png')" onError="this.onerror=null;this.src='/images/noimage.png';"></div>
           </a>
           <p class="pull-left">

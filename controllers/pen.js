@@ -1,6 +1,7 @@
 var session = require('express-session')
 var express = require('express');
 var router = express.Router();
+const isImage = require('is-image');
 
 var Authenticator = require('../middlewares/Authenticate.js');
 
@@ -30,10 +31,10 @@ router.get('/:id/remove', Authenticator.isAuthenticated, Authenticator.penAuthen
 })
 
 /* remove existing pen */
-router.get('/:id', function(req, res, next) {
+router.get('/:user_id/:id', function(req, res, next) {
   Pen.findById(req.params.id, function(err, pen) {
-    User.findById('pen.user_id', function(err, user) {
-      res.render('pen', {user: req.session.user, pen: pen, author: user});
+    User.findById(req.params.user_id, function(err, user) {
+      return res.render('pen', {user: req.session.user, pen: pen, author: user});
     })
   })
 })
